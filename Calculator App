@@ -16,13 +16,10 @@ public class MainActivity extends AppCompatActivity {
 TextView textView1;
 
 TextView show_up;
-String total;
+String textView1_string, text1, text2;
 
-String text1;
-String text2;
-
-float first_num;
-float sec_num;
+float first_num, sec_num;
+int count;
 
 
     @SuppressLint("SetTextI18n")
@@ -72,41 +69,89 @@ float sec_num;
         button9.setOnClickListener(v -> textView1.setText(textView1.getText()+"9"));
         button0.setOnClickListener(v -> textView1.setText(textView1.getText()+"0"));
         button_point.setOnClickListener(v -> textView1.setText(textView1.getText()+"."));
-        button_ac.setOnClickListener(v -> textView1.setText(""));
-        button_cut.setOnClickListener(v -> {
-            if(textView1 !=null) {
-                total = textView1.toString();
-
-                textView1.setText(total.substring(0, textView1.length()-1));
-            }
+        button_ac.setOnClickListener(v -> {
+            show_up.setText("");
+            textView1.setText("");
         });
-        button_point.setOnClickListener(v -> textView1.setText(textView1.getText()+"."));
+        button_cut.setOnClickListener(v -> {
+            textView1_string = textView1.toString();
+            textView1.setText(textView1_string.substring(0, textView1_string.length()-3));
+        });
+
         button_sq.setOnClickListener(v -> textView1.setText(textView1.getText()+"sq"));
         button_add.setOnClickListener(v -> {
-            //if(textView1 !=null) {
-                text1 = textView1.toString();
-                show_up.setText(textView1.getText());
-                textView1.setText("+");
-            //}
+            text1 = textView1.toString();
+            show_up.setText(textView1.getText());
+            textView1.setText("+");
+            count = 1;
         });
-        button0.setOnClickListener(v -> textView1.setText(textView1.getText()+"0"));
-        button0.setOnClickListener(v -> textView1.setText(textView1.getText()+"0"));
-        button0.setOnClickListener(v -> textView1.setText(textView1.getText()+"0"));
+
+        button_sub.setOnClickListener(v -> {
+            text1 = textView1.toString();
+            show_up.setText(textView1.getText());
+            textView1.setText("-");
+            count = 1;
+        });
+
+        button_into.setOnClickListener(v -> {
+            text1 = textView1.toString();
+            show_up.setText(textView1.getText());
+            textView1.setText("*");
+            count = 3;
+        });
+
+        button_divide.setOnClickListener(v -> {
+            text1 = textView1.toString();
+            show_up.setText(textView1.getText());
+            textView1.setText("/");
+            count = 4;
+        });
+
+        button_percent.setOnClickListener(v -> {
+            text1 = textView1.toString();
+            show_up.setText(textView1.getText());
+            textView1.setText("%");
+            count = 5;
+        });
+
         button_equal.setOnClickListener(v -> {
             text2 = textView1.toString();
-            if(text2.startsWith("+")) {
-                sec_num = Float.parseFloat(text2.replace("+", "0"));
+            if(count==1) {
                 first_num = Float.parseFloat(text1);
                 sec_num = Float.parseFloat(text2);
                 float sum = first_num + sec_num;
-                textView1.setText("0");
+                String SumString = Float.toString(sum);
+                show_up.setText(show_up.getText()+text2);
+                textView1.setText(SumString);
+
+            } else if (count==3){
+                first_num = Float.parseFloat(text1);
+                sec_num = Float.parseFloat(text2);
+                float into = first_num *sec_num;
+                String IntoString = Float.toString(into);
+                show_up.setText(show_up.getText()+text2);
+                textView1.setText(IntoString);
+
+            } else if (count==4) {
+                first_num = Float.parseFloat(text1);
+                sec_num = Float.parseFloat(text2);
+                float divide = first_num / sec_num;
+                String DivideString = Float.toString(divide);
+                show_up.setText(show_up.getText()+text2);
+                textView1.setText(DivideString);
+
+            } else if (count==5) {
+                first_num = Float.parseFloat(text1);
+                sec_num = Float.parseFloat(text2);
+                float percent = first_num % sec_num;
+                String PercentString = Float.toString(percent);
+                show_up.setText(show_up.getText()+text2);
+                textView1.setText(PercentString);
+
+            } else{
+                textView1.setText("Err");
             }
         });
-
-
     }
-
-
-
-
 }
+
